@@ -57,14 +57,14 @@ IS NOT NULL AND EXTRACT(YEAR FROM hire_date) = 2005)
 ORDER BY salary;
 
 -- zad3
-SELECT CONCAT(FIRST_NAME, CONCAT(' ', LAST_NAME)) AS NAME, SALARY, PHONE_NUMBER
-FROM EMPLOYEES
-WHERE SUBSTR(LAST_NAME, 3, 1) = 'E'
-AND SUBSTR(FIRST_NAME, 1, 2) = 'AD'
-ORDER BY NAME DESC, SALARY, ASC;
+SELECT CONCAT(first_name, CONCAT(' ', last_name)) AS name, salary, phone_number
+FROM employees
+WHERE SUBSTR(LAST_NAME, 3, 1) = 'e'
+AND SUBSTR(FIRST_NAME, 1, 2) = 'Da'
+ORDER BY name DESC, salary;
 
 -- zad4
-SELECT First_name, Last_name,
+SELECT first_name, last_name,
 	ROUND(MONTHS_BETWEEN(CURRENT_DATE, hire_date)) AS il_miesiecy,
 	CASE
 	 WHEN ROUND(MONTHS_BETWEEN(CURRENT_DATE, hire_date)) <=150 THEN 0.1 * salary
@@ -89,7 +89,7 @@ WHERE d.location_id = 'Toronto';
 -- zad7
 SELECT e1.first_name, e1.last_name, e2.first_name, e2.last_name
 FROM employees e1
-INNER JOIN employees e2 ON e1.manager_id = e2.employee_id
+JOIN employees e2 ON e1.employee_id <> e2.employee_id
 WHERE e1.first_name = 'Jennifer';
 
 -- zad8
@@ -102,7 +102,7 @@ WHERE e.employee_id IS NULL;
 SELECT e.first_name, e.last_name, e.job_id, d.department_name, e.salary, j.grade
 FROM employees e
 JOIN departments d ON e.department_id = d.department_id
-JOIN job_grades j ON e.job_id = j.job_id;
+JOIN job_grades j ON e.salary > j.min_salary AND e.salary < j.max_salary;
 
 -- zad11
 SELECT first_name, last_name, salary
